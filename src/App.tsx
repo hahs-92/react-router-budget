@@ -1,5 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+import { Main, mainLoader } from "./layouts/Main/Main";
+import { logoutAction } from "./actions/logout";
+
 //pages
 import { Dashboard, dashboardLoader } from "./pages/Dashboard/Dashboard";
 import { Error } from "./pages/Error/Error";
@@ -7,13 +10,25 @@ import { Error } from "./pages/Error/Error";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Dashboard />,
-    loader: dashboardLoader,
+    element: <Main />,
+    loader: mainLoader,
     errorElement: <Error />,
-  },
-  {
-    path: "/about",
-    element: <h1>About</h1>,
+    children: [
+      {
+        index: true,
+        path: "/",
+        element: <Dashboard />,
+        loader: dashboardLoader,
+      },
+      {
+        path: "/about",
+        element: <p>About</p>,
+      },
+      {
+        path: "/logout",
+        action: logoutAction,
+      },
+    ],
   },
 ]);
 
