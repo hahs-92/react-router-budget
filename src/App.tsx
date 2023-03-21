@@ -1,4 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { Main, mainLoader } from "./layouts/Main/Main";
 import { logoutAction } from "./actions/logout";
@@ -26,6 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/logout",
+        // esta action es accionada desde el componete Nav
         action: logoutAction,
       },
     ],
@@ -36,6 +39,7 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={router} />
+      <ToastContainer />
     </div>
   );
 }
