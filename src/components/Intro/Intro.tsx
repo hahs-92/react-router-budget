@@ -1,7 +1,7 @@
 import { Form } from "react-router-dom";
 import { UserPlusIcon } from "@heroicons/react/24/solid";
 
-import ilustration from "../../../assets/illustration.jpg";
+import ilustration from "../../assets/illustration.jpg";
 
 export function Intro() {
   return (

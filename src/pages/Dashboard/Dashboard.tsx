@@ -1,6 +1,8 @@
 import { ActionFunctionArgs, useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Intro } from "../../components/Nav/Intro/Intro";
+
+import { AddBudgetForm } from "../../components/AddBudgetForm/AddBudgetForm";
+import { Intro } from "../../components/Intro/Intro";
 import { fetchData, setItem } from "../../helpers/localstorage";
 
 // esta funcion es pasada como un loader
@@ -8,7 +10,8 @@ import { fetchData, setItem } from "../../helpers/localstorage";
 // el valor de retorno puede ser accedido desde el componente
 export function dashboardLoader() {
   const userName = fetchData("userName");
-  return { userName };
+  const budgtes = fetchData("budgtes");
+  return { userName, budgtes };
 }
 
 //action
@@ -32,7 +35,30 @@ export async function dashboardAction({ request }: ActionFunctionArgs) {
 }
 
 export function Dashboard() {
-  const { userName } = useLoaderData() as { userName: string };
+  const { userName, budgets } = useLoaderData() as {
+    userName: string;
+    budgets: string;
+  };
 
-  return <div>{userName ? <p>{userName}</p> : <Intro />}</div>;
+  return (
+    <>
+      {userName ? (
+        <div className="dashboard">
+          <h1>
+            Welcome back, <span className="acccent">{userName}</span>
+          </h1>
+
+          <div className="grid-sm">
+            <div className="grid-lg">
+              <div className="flex-lg">
+                <AddBudgetForm />
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <Intro />
+      )}
+    </>
+  );
 }
