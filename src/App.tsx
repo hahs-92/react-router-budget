@@ -6,7 +6,11 @@ import { Main, mainLoader } from "./layouts/Main/Main";
 import { logoutAction } from "./actions/logout";
 
 //pages
-import { Dashboard, dashboardLoader } from "./pages/Dashboard/Dashboard";
+import {
+  Dashboard,
+  dashboardAction,
+  dashboardLoader,
+} from "./pages/Dashboard/Dashboard";
 import { Error } from "./pages/Error/Error";
 
 const router = createBrowserRouter([
@@ -21,6 +25,9 @@ const router = createBrowserRouter([
         path: "/",
         element: <Dashboard />,
         loader: dashboardLoader,
+        // esta action es accionada desde Intro
+        action: dashboardAction,
+        errorElement: <Error />,
       },
       {
         path: "/about",

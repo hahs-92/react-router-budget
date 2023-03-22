@@ -1,5 +1,7 @@
-import { useLoaderData } from "react-router-dom";
-import { fetchData } from "../../helpers/localstorage";
+import { ActionFunctionArgs, useLoaderData } from "react-router-dom";
+import { toast } from "react-toastify";
+import { Intro } from "../../components/Nav/Intro/Intro";
+import { fetchData, setItem } from "../../helpers/localstorage";
 
 // esta funcion es pasada como un loader
 // en la configuracion de la ruta
@@ -9,13 +11,26 @@ export function dashboardLoader() {
   return { userName };
 }
 
+//action
+export async function dashboardAction({ request }: ActionFunctionArgs) {
+  const data = await request.formData();
+  console.log({ data, request });
+
+  // const userName = data.get("userName");
+  const formData = Object.fromEntries(data);
+
+  //userName es el nombre del input en el componente Intro
+
+  try {
+    setItem("userName", formData.userName as string);
+    toast.success(`Welcome, ${formData.userName}`);
+  } catch (error) {
+    throw new Error("There was a problem creating your account.");
+  }
+}
+
 export function Dashboard() {
   const { userName } = useLoaderData() as { userName: string };
 
-  return (
-    <div>
-      <h2>{userName}</h2>
-      Dashboard
-    </div>
-  );
+  return <div>{userName ? <p>{userName}</p> : <Intro />}</div>;
 }

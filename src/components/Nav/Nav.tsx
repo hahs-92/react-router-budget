@@ -18,7 +18,7 @@ export function Nav({ userName }: INavProps) {
         <Form
           method="post"
           // esta action es capturada en la conf de rutas
-          action="/logout"
+          action="/logout" // ruta
           onSubmit={(event) => {
             if (!confirm("Delete user and all data?")) {
               event.preventDefault();
