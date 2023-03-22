@@ -3,6 +3,9 @@ const generateRandomColor = () => {
   return `${existBudgetLength * 34} 65% 50%`;
 };
 
+export const waait = () =>
+  new Promise((res) => setTimeout(res, Math.random() * 2000));
+
 export const fetchData = (key: string): string | null => {
   return JSON.parse(localStorage.getItem(key)!);
 };

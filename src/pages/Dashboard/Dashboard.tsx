@@ -3,7 +3,12 @@ import { toast } from "react-toastify";
 
 import { AddBudgetForm } from "../../components/AddBudgetForm/AddBudgetForm";
 import { Intro } from "../../components/Intro/Intro";
-import { createBudget, fetchData, setItem } from "../../helpers/localstorage";
+import {
+  createBudget,
+  fetchData,
+  setItem,
+  waait,
+} from "../../helpers/localstorage";
 
 // esta funcion es pasada como un loader
 // en la configuracion de la ruta
@@ -16,6 +21,8 @@ export function dashboardLoader() {
 
 //action
 export async function dashboardAction({ request }: ActionFunctionArgs) {
+  await waait();
+
   const data = await request.formData();
   // console.log({ data, request });
 
