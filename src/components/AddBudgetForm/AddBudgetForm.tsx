@@ -29,6 +29,7 @@ export function AddBudgetForm() {
             inputMode="decimal"
           />
         </div>
+        <input type="hidden" name="_action" value="createBudget" />
         <button className="btn btn--dark" type="submit">
           <CurrencyDollarIcon width={20} />
           <span>Cretae Budget</span>

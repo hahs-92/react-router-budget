@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 import { AddBudgetForm } from "../../components/AddBudgetForm/AddBudgetForm";
 import { Intro } from "../../components/Intro/Intro";
-import { fetchData, setItem } from "../../helpers/localstorage";
+import { createBudget, fetchData, setItem } from "../../helpers/localstorage";
 
 // esta funcion es pasada como un loader
 // en la configuracion de la ruta
@@ -17,20 +17,35 @@ export function dashboardLoader() {
 //action
 export async function dashboardAction({ request }: ActionFunctionArgs) {
   const data = await request.formData();
-  console.log({ data, request });
+  // console.log({ data, request });
 
   // const userName = data.get("userName");
-  const formData = Object.fromEntries(data);
+  // const formData = Object.fromEntries(data);
+  const { _action, ...values } = Object.fromEntries(data);
 
   //userName es el nombre del input en el componente Intro
+  // _action contiene el valor del input tipo hidden agregado en Intro
+  // de esta manera sabemos que tipo de action es
+  if (_action === "newUser") {
+    try {
+      setItem("userName", values.userName as string);
+      // se debe devolver algo en las actions
+      return toast.success(`Welcome, ${values.userName}`);
+    } catch (error) {
+      // este error seria capturado en el component Error
+      throw new Error("There was a problem creating your account.");
+    }
+  }
 
-  try {
-    setItem("userName", formData.userName as string);
-    // se debe devolver algo en las actions
-    return toast.success(`Welcome, ${formData.userName}`);
-  } catch (error) {
-    // este error seria capturado en el component Error
-    throw new Error("There was a problem creating your account.");
+  if (_action === "createBudget") {
+    try {
+      const budgetName = values.newBudget as string;
+      const budgetAmount = Number(values.newBudgetAmount);
+      createBudget(budgetName, budgetAmount);
+      return toast.success("Budget Created!");
+    } catch (error) {
+      throw new Error("There was a problem creating your budget.");
+    }
   }
 }
 
