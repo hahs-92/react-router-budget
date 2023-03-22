@@ -23,8 +23,10 @@ export async function dashboardAction({ request }: ActionFunctionArgs) {
 
   try {
     setItem("userName", formData.userName as string);
-    toast.success(`Welcome, ${formData.userName}`);
+    // se debe devolver algo en las actions
+    return toast.success(`Welcome, ${formData.userName}`);
   } catch (error) {
+    // este error seria capturado en el component Error
     throw new Error("There was a problem creating your account.");
   }
 }
