@@ -1,3 +1,5 @@
+import { IExpense } from "../models/expense.model";
+
 const generateRandomColor = () => {
   const existBudgetLength = fetchData("budgets")?.length ?? 0;
   return `${existBudgetLength * 34} 65% 50%`;
@@ -46,4 +48,32 @@ export const createExpense = (
 
   const existingExpenses = fetchData("expenses") ?? [];
   return setItem("expenses", [...existingExpenses, newItem]);
+};
+
+export const formatCurrency = (amt: number) => {
+  return amt.toLocaleString(undefined, {
+    style: "currency",
+    currency: "USD",
+  });
+};
+
+export const calculateExpenseByBudget = (budgetId: string) => {
+  const expenses = (fetchData("expenses") ?? []) as IExpense[];
+
+  const budgetSpent = expenses.reduce((acc, expense) => {
+    if (expense.budgetId !== budgetId) {
+      return acc;
+    }
+
+    return (acc += expense.amount);
+  }, 0);
+
+  return budgetSpent;
+};
+
+export const formatPercentage = (amt: number) => {
+  return amt.toLocaleString(undefined, {
+    style: "percent",
+    minimumFractionDigits: 0,
+  });
 };

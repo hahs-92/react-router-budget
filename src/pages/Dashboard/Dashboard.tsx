@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { AddBudgetForm } from "../../components/AddBudgetForm/AddBudgetForm";
 import { AddExpenseForm } from "../../components/AddExpenseForm/AddExpenseForm";
 import { Intro } from "../../components/Intro/Intro";
+import { BudgetItem } from "../../components/BudgetItem/BudgetItem";
 import { IBudget } from "../../models/budget.model";
 import {
   createBudget,
@@ -11,7 +12,7 @@ import {
   fetchData,
   setItem,
   waait,
-} from "../../helpers/localstorage";
+} from "../../helpers/helper";
 
 // esta funcion es pasada como un loader
 // en la configuracion de la ruta
@@ -95,6 +96,13 @@ export function Dashboard() {
                   <AddBudgetForm />
                   <AddExpenseForm budgets={budgets} />
                 </div>
+
+                <h2>Existing Budgets</h2>
+                <section className="budgets">
+                  {budgets.map((budget) => (
+                    <BudgetItem budget={budget} />
+                  ))}
+                </section>
               </div>
             ) : (
               <div className="grid-sm">

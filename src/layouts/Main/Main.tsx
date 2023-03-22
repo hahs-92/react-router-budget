@@ -1,7 +1,7 @@
 import { Outlet, useLoaderData } from "react-router-dom";
 
 import { Nav } from "../../components/Nav/Nav";
-import { fetchData } from "../../helpers/localstorage";
+import { fetchData } from "../../helpers/helper";
 import wave from "../../assets/wave.svg";
 
 // esta funcion es pasada como un loader
