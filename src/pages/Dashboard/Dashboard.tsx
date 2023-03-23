@@ -1,4 +1,4 @@
-import { ActionFunctionArgs, useLoaderData } from "react-router-dom";
+import { ActionFunctionArgs, Link, useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { AddBudgetForm } from "../../components/AddBudgetForm/AddBudgetForm";
@@ -112,10 +112,18 @@ export function Dashboard() {
                   <article className="grid-md">
                     <h2>Recent Expenses</h2>
                     <Table
-                      expenses={expenses.sort(
-                        (a, b) => Number(b.createdAt) - Number(a.createdAt)
-                      )}
+                      expenses={expenses
+                        .sort(
+                          (a, b) => Number(b.createdAt) - Number(a.createdAt)
+                        )
+                        .slice(0, 8)}
                     />
+
+                    {expenses.length > 8 && (
+                      <Link to="expenses" className="btn btn--dark">
+                        View all Expenses
+                      </Link>
+                    )}
                   </article>
                 )}
               </div>
