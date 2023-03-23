@@ -33,6 +33,13 @@ export const createBudget = (name: string, amount: number) => {
   return setItem("budgets", [...existingBudgets, newItem]);
 };
 
+export const deleteItemById = <T>(key: string, id: string) => {
+  const existingData = fetchData(key) as unknown as T[];
+  const newData = existingData.filter((item) => item?.id !== id);
+
+  return localStorage.setItem(key, JSON.stringify(newData));
+};
+
 export const createExpense = (
   name: string,
   amount: number,
@@ -69,6 +76,16 @@ export const calculateExpenseByBudget = (budgetId: string) => {
   }, 0);
 
   return budgetSpent;
+};
+
+export const getAllMatchingItems = <T>(
+  category: string,
+  key: string,
+  value: string
+): T[] => {
+  const data = (fetchData(category) ?? []) as T[];
+
+  return data.filter((item) => item[key] === value);
 };
 
 export const formatPercentage = (amt: number) => {

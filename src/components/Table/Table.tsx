@@ -11,7 +11,7 @@ export function Table({ expenses }: IProps) {
       <table>
         <thead>
           <tr>
-            {["Name", "Amount", "Date"].map((i, idx) => (
+            {["Name", "Amount", "Date", "Budget", ""].map((i, idx) => (
               <th key={idx + i}>{i}</th>
             ))}
           </tr>

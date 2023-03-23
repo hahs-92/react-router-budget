@@ -13,6 +13,7 @@ import {
 } from "./pages/Dashboard/Dashboard";
 import { Error } from "./pages/Error/Error";
 import { Expenses, expensesLoader } from "./pages/Expenses/Expenses";
+import { expensesActions } from "./components/ExpenseItem/ExpenseItem";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
         path: "/expenses",
         element: <Expenses />,
         loader: expensesLoader,
+        action: expensesActions,
         errorElement: <Error />,
       },
       {

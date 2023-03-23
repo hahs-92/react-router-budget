@@ -8,6 +8,7 @@ import { BudgetItem } from "../../components/BudgetItem/BudgetItem";
 import { Table } from "../../components/Table/Table";
 import { IBudget } from "../../models/budget.model";
 import { IExpense } from "../../models/expense.model";
+import { deleteItemById } from "../../helpers/helper";
 import {
   createBudget,
   createExpense,
@@ -73,7 +74,19 @@ export async function dashboardAction({ request }: ActionFunctionArgs) {
       createExpense(expenseName, expenseAmount, budgetId);
       return toast.success("Expense Created!");
     } catch (error) {
-      throw new Error("There was a problem creating your budget.");
+      throw new Error("There was a problem creating your expense.");
+    }
+  }
+
+  // esta action es lanzada desde ExpenseItem
+  if (_action === "deleteExpense") {
+    try {
+      // este valor se envia desde ExpenseItem
+      const expenseId = values.expenseId as string;
+      deleteItemById("expenses", expenseId);
+      return toast.success("Expense Deleted!");
+    } catch (error) {
+      throw new Error("There was a problem deleting your expense.");
     }
   }
 }
