@@ -12,8 +12,12 @@ import {
   dashboardLoader,
 } from "./pages/Dashboard/Dashboard";
 import { Error } from "./pages/Error/Error";
-import { Expenses, expensesLoader } from "./pages/Expenses/Expenses";
-import { expensesActions } from "./components/ExpenseItem/ExpenseItem";
+import {
+  Expenses,
+  expensesActions,
+  expensesLoader,
+} from "./pages/Expenses/Expenses";
+import { Budget, budgetActions, budgetLoader } from "./pages/Budget/Budget";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +33,13 @@ const router = createBrowserRouter([
         loader: dashboardLoader,
         // esta action es accionada desde Intro
         action: dashboardAction,
+        errorElement: <Error />,
+      },
+      {
+        path: "/budget/:id",
+        element: <Budget />,
+        loader: budgetLoader,
+        action: budgetActions,
         errorElement: <Error />,
       },
       {
