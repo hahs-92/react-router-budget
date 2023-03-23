@@ -5,7 +5,9 @@ import { AddBudgetForm } from "../../components/AddBudgetForm/AddBudgetForm";
 import { AddExpenseForm } from "../../components/AddExpenseForm/AddExpenseForm";
 import { Intro } from "../../components/Intro/Intro";
 import { BudgetItem } from "../../components/BudgetItem/BudgetItem";
+import { Table } from "../../components/Table/Table";
 import { IBudget } from "../../models/budget.model";
+import { IExpense } from "../../models/expense.model";
 import {
   createBudget,
   createExpense,
@@ -20,8 +22,9 @@ import {
 export function dashboardLoader() {
   const userName = fetchData("userName");
   const budgets = fetchData("budgets") as unknown as IBudget[];
+  const expenses = fetchData("expenses") as unknown as IExpense[];
 
-  return { userName, budgets };
+  return { userName, budgets, expenses };
 }
 
 //action
@@ -76,9 +79,10 @@ export async function dashboardAction({ request }: ActionFunctionArgs) {
 }
 
 export function Dashboard() {
-  const { userName, budgets } = useLoaderData() as {
+  const { userName, budgets, expenses } = useLoaderData() as {
     userName: string;
     budgets: IBudget[];
+    expenses: IExpense[];
   };
 
   return (
@@ -100,9 +104,20 @@ export function Dashboard() {
                 <h2>Existing Budgets</h2>
                 <section className="budgets">
                   {budgets.map((budget) => (
-                    <BudgetItem budget={budget} />
+                    <BudgetItem key={budget.id} budget={budget} />
                   ))}
                 </section>
+
+                {expenses && expenses.length > 0 && (
+                  <article className="grid-md">
+                    <h2>Recent Expenses</h2>
+                    <Table
+                      expenses={expenses.sort(
+                        (a, b) => Number(b.createdAt) - Number(a.createdAt)
+                      )}
+                    />
+                  </article>
+                )}
               </div>
             ) : (
               <div className="grid-sm">

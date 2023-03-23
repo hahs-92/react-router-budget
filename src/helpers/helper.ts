@@ -6,7 +6,7 @@ const generateRandomColor = () => {
 };
 
 export const waait = () =>
-  new Promise((res) => setTimeout(res, Math.random() * 2000));
+  new Promise((res) => setTimeout(res, Math.random() * 800));
 
 export const fetchData = (key: string): string | null => {
   return JSON.parse(localStorage.getItem(key)!);
@@ -76,4 +76,8 @@ export const formatPercentage = (amt: number) => {
     style: "percent",
     minimumFractionDigits: 0,
   });
+};
+
+export const formatDateToLocalString = (epoch: Date) => {
+  return new Date(epoch).toLocaleDateString();
 };

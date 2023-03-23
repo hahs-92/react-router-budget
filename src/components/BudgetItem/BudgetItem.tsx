@@ -26,7 +26,7 @@ export function BudgetItem({ budget }: IProps) {
 
       <section className="progress-text">
         <small>{formatCurrency(spent)} spent</small>
-        <small>{formatCurrency(amount - spent)} spent</small>
+        <small>{formatCurrency(amount - spent)} remaining</small>
       </section>
     </article>
   );

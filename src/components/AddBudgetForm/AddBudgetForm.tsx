@@ -33,7 +33,7 @@ export function AddBudgetForm() {
           />
         </div>
         <div className="grid-xs">
-          <label htmlFor="newBudgetAmount">Budget Name</label>
+          <label htmlFor="newBudgetAmount">Budget Amount</label>
           <input
             type="number"
             step="0.01"
