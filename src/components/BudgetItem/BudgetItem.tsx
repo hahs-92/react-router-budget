@@ -4,12 +4,15 @@ import {
   calculateExpenseByBudget,
   formatPercentage,
 } from "../../helpers/helper";
+import { Form, Link } from "react-router-dom";
+import { BanknotesIcon, TrashIcon } from "@heroicons/react/24/solid";
 
 interface IProps {
   budget: IBudget;
+  showDelete?: boolean;
 }
 
-export function BudgetItem({ budget }: IProps) {
+export function BudgetItem({ budget, showDelete = false }: IProps) {
   const { id, name, amount, color } = budget;
   const spent = calculateExpenseByBudget(id);
 
@@ -28,6 +31,30 @@ export function BudgetItem({ budget }: IProps) {
         <small>{formatCurrency(spent)} spent</small>
         <small>{formatCurrency(amount - spent)} remaining</small>
       </section>
+
+      {showDelete ? (
+        <Form
+          method="post"
+          action="delete"
+          onSubmit={(event) => {
+            if (!confirm("Are you sure you want to delete this budget?")) {
+              event.preventDefault();
+            }
+          }}
+        >
+          <button type="submit" className="btn">
+            <span>Delete Budget</span>
+            <TrashIcon width={20} />
+          </button>
+        </Form>
+      ) : (
+        <div className="flex-sm">
+          <Link className="btn" to={`budget/${id}`}>
+            <span>View Details</span>
+            <BanknotesIcon width={20} />
+          </Link>
+        </div>
+      )}
     </article>
   );
 }
