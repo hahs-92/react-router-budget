@@ -2,23 +2,22 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Main, mainLoader } from "./layouts/Main/Main";
+//actions
 import { logoutAction } from "./actions/logout";
 import { deleteBudgetAction } from "./actions/deleteBudget";
-
+import { dashboardAction } from "./pages/Dashboard/dashboard.actions";
+import { budgetActions } from "./pages/Budget/budget.actions";
+import { expensesActions } from "./pages/Expenses/expenses.actions";
+//loaders
+import { dashboardLoader } from "./pages/Dashboard/dashboard.loader";
+import { expensesLoader } from "./pages/Expenses/expenses.loader";
+import { budgetLoader } from "./pages/Budget/budget.loader";
 //pages
-import {
-  Dashboard,
-  dashboardAction,
-  dashboardLoader,
-} from "./pages/Dashboard/Dashboard";
+import { Main, mainLoader } from "./layouts/Main/Main";
+import { Dashboard } from "./pages/Dashboard/Dashboard";
 import { Error } from "./pages/Error/Error";
-import {
-  Expenses,
-  expensesActions,
-  expensesLoader,
-} from "./pages/Expenses/Expenses";
-import { Budget, budgetActions, budgetLoader } from "./pages/Budget/Budget";
+import { Expenses } from "./pages/Expenses/Expenses";
+import { Budget } from "./pages/Budget/Budget";
 
 const router = createBrowserRouter([
   {
